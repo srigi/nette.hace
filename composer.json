@@ -20,12 +20,14 @@
         "nette/application": "~2.4.12",
         "nette/bootstrap": "~2.4.6",
         "nette/caching": "~2.5.8",
+        "nette/database": "~2.4.6",
         "nette/di": "~2.4.13",
         "nette/forms": "~2.4.8",
         "nette/http": "~2.4.9",
         "nette/robot-loader": "~3.0.4",
         "nette/security": "~2.4.3",
         "nette/utils": "~2.5.2",
+        "nextras/migrations": "3.1.0-rc5",
         "tracy/tracy": "~2.5.1"
     },
     "require-dev": {

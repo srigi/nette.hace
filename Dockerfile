@@ -55,6 +55,7 @@ RUN composer install --no-autoloader --no-interaction --no-scripts --no-suggest 
 # Copy app sources & initialize app
 COPY ./bin ./bin/
 COPY ./config ./config/
+COPY ./migrations ./migrations/
 COPY ./src ./src/
 COPY ./www ./www/
 RUN composer dump-autoload --optimize \

@@ -5,7 +5,9 @@ includes:
   # extensions
   - extensions/application.neon
   - extensions/console.neon
+  - extensions/database.neon
   - extensions/decorator.neon
+  - extensions/migrations.neon
   - extensions/session.neon
 
   # services
