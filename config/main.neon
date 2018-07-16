@@ -3,6 +3,7 @@ includes:
 
   # extensions
   - extensions/application.neon
+  - extensions/decorator.neon
   - extensions/session.neon
 
   # services
