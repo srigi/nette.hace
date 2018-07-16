@@ -1,0 +1,51 @@
+version: '2'
+
+services:
+  adminer:
+    image: adminer
+    env_file:
+      - .env
+    ports:
+      - "127.0.0.1:${HOST_PORT_ADMINER}:8080"
+    volumes:
+      - adminer:/tmp
+
+  app:
+    build:
+      context: .
+      args:
+        APP_DEBUG: $APP_DEBUG
+        IS_PROD_BUILD: 0
+        TIMEZONE: $TIMEZONE
+    image: srigi/hace
+    env_file:
+      - .env
+    volumes:
+      - ./.docker/php-dev.ini:/usr/local/etc/php/php.ini:ro
+      - ./bin:/app/bin
+      - ./config:/app/config
+      - ./src:/app/src
+      - ./www:/app/www
+      - ./var:/app/var
+      - ./composer.json:/app/composer.json
+      - ./composer.lock:/app/composer.lock
+
+  webserver:
+    build:
+      context: .
+      dockerfile: Dockerfile.webserver
+      args:
+        FCGI_READ_TIMEOUT: $FCGI_READ_TIMEOUT
+        WEBSERVER_TEMPLATE: 'webserver.template.dev.nginx'
+    image: srigi/hace/webserver
+    env_file:
+      - .env
+    depends_on:
+      - app
+    ports:
+      - "127.0.0.1:${HOST_PORT_APP}:8000"
+    volumes:
+      - ./www:/app/www
+
+volumes:
+  adminer:

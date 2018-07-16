@@ -1,0 +1,9 @@
+includes:
+  - parameters.neon
+
+  # extensions
+  - extensions/application.neon
+  - extensions/session.neon
+
+  # services
+  - services/router.neon

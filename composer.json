@@ -1,0 +1,34 @@
+{
+    "config": {
+        "platform": {
+            "php": "7.1"
+        },
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "description": "Srigi HACE",
+    "license": "MIT",
+    "name": "srigi/hace",
+    "require": {
+        "php": ">= 7.1",
+        "dg/composer-backslasher": "~0.3",
+        "dg/composer-cleaner": "~2.0",
+        "latte/latte": "~2.4.8",
+        "nette/application": "~2.4.12",
+        "nette/bootstrap": "~2.4.6",
+        "nette/caching": "~2.5.8",
+        "nette/di": "~2.4.13",
+        "nette/forms": "~2.4.8",
+        "nette/http": "~2.4.9",
+        "nette/robot-loader": "~3.0.4",
+        "nette/security": "~2.4.3",
+        "nette/utils": "~2.5.2",
+        "tracy/tracy": "~2.5.1"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-master"
+    },
+    "type": "project"
+}
