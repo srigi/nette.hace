@@ -23,13 +23,9 @@
 
 {block content}
   <div id="banner">
-    <h1 n:block=title>List persons</h1>
+    <h1 n:block=title>Edit person</h1>
   </div>
 
   <div id="content">
-    <p>Total count: <strong>{$persons->getRowCount()}</strong></p>
-    <p><a n:href="add">add another</a></p>
-    <ul>
-      <li n:foreach="$persons as $person"><a n:href="edit uuid => $person->uuid">{$person->name}</a></li>
-    </ul>
+    {control personForm $person}
   </div>
