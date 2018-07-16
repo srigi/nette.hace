@@ -1,8 +1,10 @@
 includes:
   - parameters.neon
+  - parameters.php
 
   # extensions
   - extensions/application.neon
+  - extensions/console.neon
   - extensions/decorator.neon
   - extensions/session.neon
 

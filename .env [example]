@@ -2,8 +2,9 @@ APP_DEBUG=1
 FCGI_READ_TIMEOUT=3600s
 HOST_PORT_ADMINER=8003
 HOST_PORT_APP=8000
+HOST_URI=www.hace.test:8000
+TIMEZONE=Europe/Prague
 
+# Xdebug
 PHP_IDE_CONFIG=serverName=www.hace.test
 XDEBUG_CONFIG=remote_host=10.100.100.1
-
-TIMEZONE=Europe/Prague
