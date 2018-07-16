@@ -1,0 +1,13 @@
+<form n:name="form" class="site-form">
+  <fieldset n:class="$form['name']->hasErrors() ? has-danger, form-group">
+    <label n:name="name" class="form-control-label">{$form['name']->caption}</label>
+    {input $form['name'],
+      class => ['form-control', ($form['name']->hasErrors()) ? 'form-control-danger']}
+    <small n:ifcontent class="form-control-description">{$form['name']->getOption('description')}</small>
+  </fieldset>
+
+  <fieldset n:class="$form->hasErrors() || isset($formMessage) ? hidden, 'site-form--submit', 'form-group'">
+    <button n:name="save" class="btn btn-primary btn-block">{$form['save']->caption}</button>
+    <small n:ifcontent class="form-control-description">{$form['save']->getOption('description')}</small>
+  </fieldset>
+</form>
