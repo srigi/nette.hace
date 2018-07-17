@@ -20,6 +20,8 @@ services:
     image: srigi/hace
     env_file:
       - .env
+    depends_on:
+      - database
     volumes:
       - ./.docker/php-dev.ini:/usr/local/etc/php/php.ini:ro
       - ./bin:/app/bin
@@ -30,6 +32,20 @@ services:
       - ./var:/app/var
       - ./composer.json:/app/composer.json
       - ./composer.lock:/app/composer.lock
+
+  migrations:
+    image: srigi/hace
+    env_file:
+      - .env
+    depends_on:
+      - database
+    volumes:
+      - ./.docker/php-dev.ini:/usr/local/etc/php/php.ini:ro
+      - ./bin:/app/bin
+      - ./config:/app/config
+      - ./migrations:/app/migrations
+      - ./var:/app/var
+    command: sh -c 'wait-for-it database:5432 && bin/console migrations:continue --no-interaction'
 
   webserver:
     build:
