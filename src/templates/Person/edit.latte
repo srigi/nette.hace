@@ -17,20 +17,16 @@
     }
 
     #content { background: white; border: 1px solid #eff4f7; border-radius: 0 0 12px 12px; padding: 10px 4%; overflow: hidden; }
-
-    h2 { font: inherit; padding: 1.2em 0; margin: 0; }
-
-    img { border: none; float: right; margin: 0 0 1em 3em; }
   </style>
 {/block}
 
 
 {block content}
   <div id="banner">
-    <h1 n:block=title>Congratulations!</h1>
+    <h1 n:block=title>Edit person</h1>
   </div>
 
   <div id="content">
-    <h2>You have successfully created your <strong>Nette Web project</strong>.</h2>
-    <p>Go to <a n:href="Person:">persons list</a>.</p>
+    <p>Go to <a n:href="Homepage:">homepage</a>, <a n:href="Person:">persons list</a></p>
+    {control personForm $person}
   </div>

@@ -17,15 +17,24 @@
     }
 
     #content { background: white; border: 1px solid #eff4f7; border-radius: 0 0 12px 12px; padding: 10px 4%; overflow: hidden; }
+
+    .flexo { display: flex; justify-content: space-between; }
   </style>
 {/block}
 
 
 {block content}
   <div id="banner">
-    <h1 n:block=title>Edit person</h1>
+    <h1 n:block=title>Persons list</h1>
   </div>
 
   <div id="content">
-    {control personForm $person}
+    <p>Go to <a n:href="Homepage:">homepage</a></p>
+    <p class="flexo">
+      <span>Total count: <strong>{$persons->getRowCount()}</strong></span>
+      <span><a n:href="add">add another</a></span>
+    </p>
+    <ul>
+      <li n:foreach="$persons as $person"><a n:href="edit uuid => $person->uuid">{$person->name}</a></li>
+    </ul>
   </div>
