@@ -28,7 +28,7 @@ class PersonPresenter extends WebPresenter
     public function actionEdit(string $uuid): void
     {
         $person = $this->database->fetch('SELECT * FROM person WHERE uuid = ?', $uuid);
-        if ($person !== null) {
+        if (!($person instanceof Database\IRow)) {
             throw new Application\BadRequestException('Page not found');
         }
 
@@ -76,7 +76,7 @@ class PersonPresenter extends WebPresenter
     private function updatePerson(Utils\ArrayHash $values): void
     {
         $person = $this->database->fetch('SELECT * FROM person WHERE uuid = ?', $values['uuid']);
-        if ($person !== null) {
+        if (!($person instanceof Database\IRow)) {
             throw new Application\BadRequestException('Page not found');
         }
 
