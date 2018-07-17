@@ -11,5 +11,5 @@ indent_size = 4
 [Dockerfile*]
 indent_style = tab
 
-[{docker-compose*,*.latte,*.neon,*.phtml}]
+[{docker-compose*,*.latte,*.neon,*.phtml,*.yaml,*.yml}]
 indent_size = 2
