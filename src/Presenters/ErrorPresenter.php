@@ -35,7 +35,8 @@ class ErrorPresenter implements Nette\Application\IPresenter
         $this->logger->log($exception, ILogger::EXCEPTION);
 
         return new Responses\CallbackResponse(function (Http\IRequest $httpRequest, Http\IResponse $httpResponse): void {
-            if (\preg_match('#^text/html(?:;|$)#', $httpResponse->getHeader('Content-Type'))) {
+            $contentType = $httpResponse->getHeader('Content-Type');
+            if ($contentType !== null && \preg_match('#^text/html(?:;|$)#', $contentType)) {
                 require __DIR__ . '/../templates/Error/500.phtml';
             }
         });

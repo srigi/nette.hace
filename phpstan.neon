@@ -1,0 +1,4 @@
+parameters:
+  tmpDir: var/temp/phpstan
+  ignoreErrors:
+    - '#Access to an undefined property Nette\\Application\\UI\\ITemplate|stdClass#'

@@ -13,15 +13,18 @@ class Error4xxPresenter extends WebPresenter
     {
         parent::startup();
 
-        if (!$this->getRequest()->isMethod(Application\Request::FORWARD)) {
+        $request = $this->getRequest();
+        if ($request !== null && !$request->isMethod(Application\Request::FORWARD)) {
             $this->error();
         }
     }
 
     public function renderDefault(Application\BadRequestException $exception): void
     {
-        $file = \sprintf(__DIR__ . '/../templates/Error/%s.latte', $exception->getCode());
-        $this->template->setFile(\is_file($file) ? $file : __DIR__ . '/../templates/Error/4xx.latte');
+        $file = \sprintf(__DIR__ . '/../templates/Error/%s.latte', $exception->getCode()); /** @var string $file */
+        $file = \is_file($file) ? $file : __DIR__ . '/../templates/Error/4xx.latte';
+
+        $this->template->setFile($file);
     }
 
 }

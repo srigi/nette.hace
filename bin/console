@@ -2,9 +2,13 @@
 
 <?php
 
-/** @var \Nette\DI\Container $container */
+use Nette\DI;
+use Symfony\Component\Console;
 
+/** @var DI\Container $container */
 $container = require __DIR__ . '/../src/bootstrap.php';
-$console = $container->getByType(\Symfony\Component\Console\Application::class);
+
+/** @var Console\Application $console */
+$console = $container->getByType(Console\Application::class);
 
 exit($console->run());

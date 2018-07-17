@@ -20,13 +20,15 @@ class HomepagePresenter extends WebPresenter
 
     public function __construct(Database\Connection $database)
     {
+        parent::__construct();
+
         $this->database = $database;
     }
 
     public function actionEdit(string $uuid): void
     {
         $person = $this->database->fetch('SELECT * FROM person WHERE uuid = ?', $uuid);
-        if ($person === false) {
+        if ($person !== null) {
             throw new Application\BadRequestException('Page not found');
         }
 
@@ -74,7 +76,7 @@ class HomepagePresenter extends WebPresenter
     private function updatePerson(Utils\ArrayHash $values): void
     {
         $person = $this->database->fetch('SELECT * FROM person WHERE uuid = ?', $values['uuid']);
-        if ($person === false) {
+        if ($person !== null) {
             throw new Application\BadRequestException('Page not found');
         }
 

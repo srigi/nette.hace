@@ -21,6 +21,8 @@ class PersonForm extends UI\Control
 
     public function __construct()
     {
+        parent::__construct();
+
         $this->form = new UI\Form();
 
         $this->form->addText('name', 'Name')
@@ -31,13 +33,13 @@ class PersonForm extends UI\Control
         $this->form->addSubmit('save', 'Save');
     }
 
-    public function render(?Database\IRow $person = null): void
+    public function render(?Database\Row $person = null): void
     {
         if ($person !== null) {
-            $this->form->values = [
+            $this->form->setDefaults([
                 'uuid' => $person->uuid,
                 'name' => $person->name,
-            ];
+            ]);
         }
 
         $this->template->render(__DIR__ . '/default.latte');
