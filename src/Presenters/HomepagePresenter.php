@@ -44,7 +44,7 @@ class HomepagePresenter extends WebPresenter
 
     protected function createComponentPersonForm()
     {
-        $form = new Forms\PersonForm();
+        $form = new Forms\Person\PersonForm();
         $form->onSuccess[] = [$this, 'personFormSubmitted'];
 
         return $form;
