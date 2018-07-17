@@ -58,6 +58,7 @@ COPY ./config ./config/
 COPY ./migrations ./migrations/
 COPY ./src ./src/
 COPY ./www ./www/
+COPY ./coding-standards.xml ./phpstan.neon ./
 RUN composer dump-autoload --optimize \
 	&& composer clearcache
 
