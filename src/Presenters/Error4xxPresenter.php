@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\Presenters;
 
 use Nette\Application;
 
-
 class Error4xxPresenter extends WebPresenter
 {
-    public function startup()
+
+    public function startup(): void
     {
         parent::startup();
 
@@ -16,10 +18,10 @@ class Error4xxPresenter extends WebPresenter
         }
     }
 
-
-    public function renderDefault(Application\BadRequestException $exception)
+    public function renderDefault(Application\BadRequestException $exception): void
     {
-        $file = __DIR__ . "/../templates/Error/{$exception->getCode()}.latte";
-        $this->template->setFile(is_file($file) ? $file : __DIR__ . '/../templates/Error/4xx.latte');
+        $file = \sprintf(__DIR__ . '/../templates/Error/%s.latte', $exception->getCode());
+        $this->template->setFile(\is_file($file) ? $file : __DIR__ . '/../templates/Error/4xx.latte');
     }
+
 }

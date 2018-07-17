@@ -57,6 +57,17 @@ services:
       - ./www:/app/www
     command: bin/parallel-lint --no-progress -e php bin/ config/ migrations/ src/ www/
 
+  phpcs:
+    image: srigi/hace
+    volumes:
+      - ./.docker/php-dev.ini:/usr/local/etc/php/php.ini:ro
+      - ./bin:/app/bin
+      - ./config:/app/config
+      - ./src:/app/src
+      - ./www:/app/www
+      - ./coding-standards.xml:/app/coding-standards.xml
+    command: bin/phpcs --extensions=php --standard=coding-standards.xml
+
   webserver:
     build:
       context: .

@@ -18,9 +18,9 @@
     "name": "srigi/hace",
     "require": {
         "php": ">= 7.1",
-        "dg/composer-backslasher": "~0.3",
-        "dg/composer-cleaner": "~2.0",
-        "kdyby/console": "^2.7",
+        "dg/composer-backslasher": "^0.3",
+        "dg/composer-cleaner": "^2.0",
+        "kdyby/console": "~2.7.1",
         "latte/latte": "~2.4.8",
         "nette/application": "~2.4.12",
         "nette/bootstrap": "~2.4.6",
@@ -37,9 +37,11 @@
         "tracy/tracy": "~2.5.1"
     },
     "require-dev": {
-        "jakub-onderka/php-console-highlighter": "^0.3.2",
-        "jakub-onderka/php-parallel-lint": "^1.0",
-        "roave/security-advisories": "dev-master"
+        "consistence/coding-standard": "~3.4",
+        "jakub-onderka/php-console-highlighter": "~0.3.2",
+        "jakub-onderka/php-parallel-lint": "~1.0.0",
+        "roave/security-advisories": "dev-master",
+        "slevomat/coding-standard": "~4.6.3"
     },
     "type": "project"
 }
