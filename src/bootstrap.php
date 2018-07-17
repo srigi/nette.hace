@@ -12,7 +12,7 @@ if ($debugMode === true) {
     $configurator->setDebugMode(true);
 }
 
-$configurator->enableTracy(__DIR__ . '/../var/logs');
+$configurator->enableTracy();
 
 $timeZone = \getenv('TIMEZONE');
 if ($timeZone !== false) {

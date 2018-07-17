@@ -38,7 +38,6 @@ COPY ./.docker/php.ini /usr/local/etc/php/
 # Prepare app workdir & tools, switch to unprivileged user
 WORKDIR /app
 RUN mkdir -p \
-		var/logs \
 		var/temp \
 	&& chown -R www-data:www-data /app
 

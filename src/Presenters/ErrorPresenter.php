@@ -26,13 +26,13 @@ class ErrorPresenter implements Nette\Application\IPresenter
     public function run(Nette\Application\Request $request): Application\IResponse
     {
         $exception = $request->getParameter('exception');
+        $this->logger->log($exception, ILogger::EXCEPTION);
+
         if ($exception instanceof Nette\Application\BadRequestException) {
             [$module, , $sep] = Nette\Application\Helpers::splitName($request->getPresenterName());
 
             return new Responses\ForwardResponse($request->setPresenterName($module . $sep . 'Error4xx'));
         }
-
-        $this->logger->log($exception, ILogger::EXCEPTION);
 
         return new Responses\CallbackResponse(function (Http\IRequest $httpRequest, Http\IResponse $httpResponse): void {
             $contentType = $httpResponse->getHeader('Content-Type');

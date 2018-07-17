@@ -28,6 +28,7 @@
         "dg/composer-backslasher": "^0.3",
         "dg/composer-cleaner": "^2.0",
         "kdyby/console": "~2.7.1",
+        "kdyby/monolog": "~1.3.2",
         "latte/latte": "~2.4.8",
         "nette/application": "~2.4.12",
         "nette/bootstrap": "~2.4.6",
