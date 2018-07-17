@@ -47,6 +47,16 @@ services:
       - ./var:/app/var
     command: sh -c 'wait-for-it database:5432 && bin/console migrations:continue --no-interaction'
 
+  parallel-lint:
+    image: srigi/hace
+    volumes:
+      - ./.docker/php-dev.ini:/usr/local/etc/php/php.ini:ro
+      - ./bin:/app/bin
+      - ./config:/app/config
+      - ./src:/app/src
+      - ./www:/app/www
+    command: bin/parallel-lint --no-progress -e php bin/ config/ migrations/ src/ www/
+
   webserver:
     build:
       context: .
