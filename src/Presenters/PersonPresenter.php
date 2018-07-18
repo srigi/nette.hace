@@ -10,7 +10,7 @@ use Nette\Application;
 use Nette\Application\UI;
 use Nette\Database;
 use Nette\Utils;
-use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid;
 
 class PersonPresenter extends WebPresenter
 {
@@ -54,41 +54,52 @@ class PersonPresenter extends WebPresenter
 
     public function personFormSubmitted(UI\Form $form, Utils\ArrayHash $values): void
     {
-        if (!$values['uuid']) {
+        if (!$values['uuid']) {  // creating or updating?
             $this->createPerson($values);
+            $this->flashMessage('Person saved successfully', 'info');
         } else {
-            $this->updatePerson($values);
+            $result = $this->updatePerson($values);
+            if ($result !== null) {
+                $this->flashMessage('Person updated successfully', 'info');
+            } else {
+                $this->flashMessage('Person wasn\'t updated', 'info');
+            }
         }
 
         $this->redirect('default');
     }
 
-    private function createPerson(Utils\ArrayHash $values): void
+    private function createPerson(Utils\ArrayHash $values): ?Uuid\UuidInterface
     {
-        $pk = Uuid::uuid4();
-        $now = new DateTimeImmutable();
-        $this->database->query('INSERT INTO person ?', [
-            'uuid' => $pk,
-            'name' => $values['name'],
-            'created_time' => $now,
-        ]);
+        if ($values['name'] !== null) {
+            $now = new DateTimeImmutable();
+            $pk = Uuid\Uuid::uuid4();
+            $rowCount = $this->database->query('INSERT INTO person ?', [
+                'uuid' => $pk,
+                'name' => $values['name'],
+                'created_time' => $now,
+            ])->getRowCount();
+            if ($rowCount !== 0) {
+                return $pk;
+            }
+        }
 
-        $this->flashMessage('Person saved successfully', 'info');
+        return null;
     }
 
-    private function updatePerson(Utils\ArrayHash $values): void
+    private function updatePerson(Utils\ArrayHash $values): ?int
     {
-        if ($values['name'] !== $this->person->name) {
+        if ($values['name'] !== null && $values['name'] !== $this->person->name) {
             $now = new DateTimeImmutable();
-            $this->database->query('UPDATE person SET', [
+            $affectedRows = $this->database->query('UPDATE person SET', [
                 'name' => $values['name'],
                 'updated_time' => $now,
-            ], 'WHERE uuid = ?', $values['uuid']);
+            ], 'WHERE uuid = ?', $values['uuid'])->getRowCount();
 
-            $this->flashMessage('Person updated successfully', 'info');
-        } else {
-            $this->flashMessage('Person wasn\'t updated', 'info');
+            return $affectedRows;
         }
+
+        return null;
     }
 
 }
