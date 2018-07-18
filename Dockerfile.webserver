@@ -19,7 +19,8 @@ ENV FCGI_READ_TIMEOUT=$FCGI_READ_TIMEOUT
 RUN cp /etc/nginx/webserver.template.nginx /etc/nginx/nginx.conf \
 	&& envsubst '\$APP_HOST \$FCGI_READ_TIMEOUT' < /etc/nginx/webserver.frontcontroller.template.conf > /etc/nginx/webserver.frontcontroller.conf
 
-COPY ./www/ /app/www/
+WORKDIR /app
+COPY ./www/ ./www/
 
 ARG TAG
 ENV TAG=$TAG
