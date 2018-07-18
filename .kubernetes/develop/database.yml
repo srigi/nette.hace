@@ -8,7 +8,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   capacity:
-    storage: 100Mi
+    storage: 1Gi
   hostPath:
     path: "/Users/srigi/Sites/projects/nette/hace/.data"
     type: DirectoryOrCreate
@@ -27,7 +27,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 50Mi
+      storage: 100Mi
   storageClassName: local
   volumeName: database
 
