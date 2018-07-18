@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+  namespace: hace
+spec:
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+        - name: app
+          image: 192.168.0.101:5000/srigi/hace
+          env:
+            - name: APP_DEBUG
+              value: '0'
+            - name: HOST_PROTO
+              value: http
+            - name: HOST_URI
+              value: www.hace.test:30080
+          ports:
+            - containerPort: 9000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app
+  namespace: hace
+spec:
+  selector:
+    app: app
+  ports:
+    - port: 9000
