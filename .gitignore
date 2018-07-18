@@ -19,8 +19,9 @@ desktop.ini
 nbproject
 
 ## Folders to ignore
+/.data
 /my_resources
-/vendor/
+/vendor
 
 ## Files to ignore
 .env
