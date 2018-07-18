@@ -1,5 +1,10 @@
 {layout "@wrapper.latte"}
 
+{block styles}
+  <link rel="stylesheet" href="/styles/main.css" />
+{/block}
+
+
 {block layout}
   <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
 
