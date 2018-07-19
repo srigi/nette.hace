@@ -6,7 +6,7 @@ services:
     env_file:
       - .env
     ports:
-      - "127.0.0.1:${HOST_PORT_ADMINER}:8080"
+      - "127.0.0.1:${ADMINER_HOST_PORT}:8080"
     volumes:
       - adminer:/tmp
 
@@ -93,7 +93,7 @@ services:
     depends_on:
       - app
     ports:
-      - "127.0.0.1:${HOST_PORT_APP}:8000"
+      - "127.0.0.1:${WEBSERVER_HOST_PORT}:8000"
     volumes:
       - ./www:/app/www
 
@@ -102,13 +102,13 @@ services:
       context: .
       dockerfile: Dockerfile.spa
       args:
-        API_HOST: $HOST_URI
+        API_HOST: $APP_HOST_URI
         WEBSERVER_TEMPLATE: 'spa.template.dev.nginx'
     image: srigi/hace/spa
     env_file:
       - .env
     ports:
-      - "127.0.0.1:8001:8000"
+      - "127.0.0.1:${SPA_HOST_PORT}:8000"
 
   database:
     image: postgres:11-alpine

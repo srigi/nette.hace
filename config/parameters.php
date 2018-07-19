@@ -4,11 +4,11 @@ declare(strict_types = 1);
 
 $parameters = [];
 
-if (($hostProto = \getenv('HOST_PROTO')) !== false) {
-    $parameters['hostProto'] = $hostProto;
+if (($appHostProto = \getenv('APP_HOST_PROTO')) !== false) {
+    $parameters['appHostProto'] = $appHostProto;
 }
-if (($hostUri = \getenv('HOST_URI')) !== false) {
-    $parameters['hostUri'] = $hostUri;
+if (($appHostUri = \getenv('APP_HOST_URI')) !== false) {
+    $parameters['appHostUri'] = $appHostUri;
 }
 
 return ['parameters' => $parameters];

@@ -3,4 +3,4 @@ extensions:
 
 
 console:
-  url: "%hostProto%://%hostUri%"
+  url: "%appHostProto%://%appHostUri%"
