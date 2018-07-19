@@ -11,6 +11,7 @@ spec:
       containers:
         - name: database-migration
           image: 192.168.0.101:5000/srigi/hace
+          imagePullPolicy: Always
           env:
             - name: APP_DEBUG
               value: '0'
@@ -19,5 +20,4 @@ spec:
             - name: APP_HOST_URI
               value: www.hace.test:30080
           command: ['sh', '-c', 'wait-for-it database:5432 && bin/console migrations:continue --no-interaction']
-          imagePullPolicy: Always
       restartPolicy: Never

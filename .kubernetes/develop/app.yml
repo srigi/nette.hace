@@ -16,6 +16,7 @@ spec:
       containers:
         - name: app
           image: 192.168.0.101:5000/srigi/hace
+          imagePullPolicy: Always
           env:
             - name: APP_DEBUG
               value: '0'
