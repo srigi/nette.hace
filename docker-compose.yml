@@ -97,6 +97,19 @@ services:
     volumes:
       - ./www:/app/www
 
+  spa:
+    build:
+      context: .
+      dockerfile: Dockerfile.spa
+      args:
+        API_HOST: $HOST_URI
+        WEBSERVER_TEMPLATE: 'spa.template.dev.nginx'
+    image: srigi/hace/spa
+    env_file:
+      - .env
+    ports:
+      - "127.0.0.1:8001:8000"
+
   database:
     image: postgres:11-alpine
     environment:

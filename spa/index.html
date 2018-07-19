@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Persons list • Hace SPA</title>
+
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+  <div id="banner">
+    <h1>Persons list (SPA)</h1>
+  </div>
+
+  <div id="content">
+    <p class="flexo">
+      <span>Total count: <strong class="persons-list-count"></strong></span>
+    </p>
+
+    <ul class="persons-list"></ul>
+  </div>
+
+  <script>
+    window.API_HOST = '$API_HOST';
+  </script>
+  <script src="/main.js"></script>
+</body>
+</html>

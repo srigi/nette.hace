@@ -1,0 +1,25 @@
+FROM nginx:1.15-alpine
+
+RUN mkdir /var/run/nginx \
+	&& chown nginx:nginx /var/run/nginx \
+	&& chmod ug+w /var/run/nginx
+COPY ./.docker/bin/spa-foreground.sh /usr/local/bin/
+
+ARG WEBSERVER_TEMPLATE=spa.template.nginx
+COPY ./.docker/$WEBSERVER_TEMPLATE /etc/nginx/nginx.conf
+
+WORKDIR /app
+COPY ./spa/styles ./styles/
+COPY ./spa/index.html ./index.template.html
+COPY ./spa/main.js ./
+
+ARG API_HOST
+ENV API_HOST=$API_HOST
+RUN envsubst '\$API_HOST' < ./index.template.html > ./index.html \
+	&& rm ./index.template.html
+
+ARG TAG
+ENV TAG=$TAG
+
+USER nginx
+CMD ["spa-foreground.sh"]
