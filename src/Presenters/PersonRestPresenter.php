@@ -39,4 +39,21 @@ class PersonRestPresenter extends RestPresenter
         ]);
     }
 
+    public function actionPost(array $params, Utils\ArrayHash $body): Application\IResponse
+    {
+        try {
+            $newPersonUuid = $this->personService->createOne($body);
+        } catch (Application\BadRequestException $ex) {
+            return $this->sendJson([
+                'status' => 'error',
+                'message' => $ex->getMessage(),
+            ], $ex->getCode());
+        }
+
+        return $this->sendJson([
+            'status' => 'ok',
+            'new-person-uuid' => $newPersonUuid,
+        ]);
+    }
+
 }
