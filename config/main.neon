@@ -13,3 +13,6 @@ includes:
 
   # services
   - services/router.neon
+
+services:
+  - App\Services\PersonService

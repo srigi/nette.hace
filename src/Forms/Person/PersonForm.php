@@ -19,7 +19,7 @@ class PersonForm extends UI\Control
     /** @var UI\Form */
     protected $form;
 
-    public function __construct()
+    public function __construct(?Database\Row $person = null)
     {
         parent::__construct();
 
@@ -28,20 +28,17 @@ class PersonForm extends UI\Control
         $this->form->addText('name', 'Name')
             ->setRequired();
 
-        $this->form->addHidden('uuid');
-
         $this->form->addSubmit('save', 'Save');
-    }
 
-    public function render(?Database\Row $person = null): void
-    {
         if ($person !== null) {
             $this->form->setDefaults([
-                'uuid' => $person->uuid,
                 'name' => $person->name,
             ]);
         }
+    }
 
+    public function render(): void
+    {
         $this->template->render(__DIR__ . '/default.latte');
     }
 
