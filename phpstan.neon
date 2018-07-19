@@ -2,3 +2,4 @@ parameters:
   tmpDir: var/temp/phpstan
   ignoreErrors:
     - '#Access to an undefined property Nette\\Application\\UI\\ITemplate|stdClass#'
+    - '#Call to an undefined method [^\s]+RestPresenter::action[\w]+()#'
