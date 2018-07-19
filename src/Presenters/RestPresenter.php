@@ -12,6 +12,12 @@ use Nette\Utils;
 abstract class RestPresenter implements Application\IPresenter
 {
 
+    public const CORS_HEADERS = [
+        'Allow' => 'OPTIONS, GET, POST',
+        'Access-Control-Allow-Origin' => '*',
+        'Access-Control-Allow-Headers' => 'Content-Type',
+    ];
+
     /** @var Http\Request */
     private $request;
 
@@ -22,6 +28,14 @@ abstract class RestPresenter implements Application\IPresenter
 
     public function run(Application\Request $appRequest): Application\IResponse
     {
+        if ($this->isPreflight($this->request)) {
+            return new Application\Responses\CallbackResponse(function (Http\IRequest $httpRequest, Http\IResponse $httpResponse): void {
+                foreach (self::CORS_HEADERS as $header => $value) {
+                    $httpResponse->setHeader($header, $value);
+                }
+            });
+        }
+
         if ($this->isRest($this->request)) {
             $method = $this->request->getMethod();
             $params = $appRequest->getParameters();
@@ -49,6 +63,13 @@ abstract class RestPresenter implements Application\IPresenter
     protected function sendJson(array $data, int $statusCode = Http\IResponse::S200_OK): Application\IResponse
     {
         return new Lib\JsonResponse($statusCode, $data);
+    }
+
+    private function isPreflight(Http\Request $request): bool
+    {
+        $method = $request->getMethod();
+
+        return ($method === 'OPTIONS');
     }
 
     private function isRest(Http\Request $request): bool
