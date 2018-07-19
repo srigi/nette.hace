@@ -75,6 +75,7 @@ services:
       - ./bin:/app/bin
       - ./config:/app/config
       - ./src:/app/src
+      - ./var:/app/var
       - ./www:/app/www
       - ./phpstan.neon:/app/phpstan.neon
     command: bin/phpstan analyse -c phpstan.neon --no-progress --level 7 bin/console config/ src/ www/
