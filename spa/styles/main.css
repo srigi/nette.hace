@@ -6,7 +6,7 @@ html {
 }
 
 body {
-    background: #3484d2;
+    background: #3ccbce;
     color: #333;
     max-width: 600px;
     min-width: 320px;
@@ -15,19 +15,19 @@ body {
 }
 
 a {
-    color: #006aeb;
+    color: #13d3e6;
     padding: 3px 1px;
 }
 a:hover,
 a:active,
 a:focus {
-    background-color: #006aeb;
+    background-color: #13d3e6;
     color: white;
     text-decoration: none;
 }
 
 #banner {
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAB5CAIAAAB3BtxyAAAAUElEQVR4AWLg0Q9iYmBgGGAM6HMMUACGQRjIRf//5oGwYVYtADZp7yo1Qd6DZ8XJFsN79v7GEvs9atPfI60ed8TsAssr1/7h63LcGXPl3/8ANSIB8y+gfDQAAAAASUVORK5CYII=);
+    background: #125f61 linear-gradient(to bottom, #104e50 0%, #199499 100%);
     border-radius: 12px 12px 0 0;
 }
 
