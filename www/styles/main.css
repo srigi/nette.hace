@@ -26,6 +26,19 @@ a:focus {
     text-decoration: none;
 }
 
+.flash {
+    background-color: chartreuse;
+    border: 2px solid darkgray;
+    box-sizing: border-box;
+    color: midnightblue;
+    opacity: 0.8;
+    padding: 0.5rem;
+    position: absolute;
+    left: 5%;
+    top: 1rem;
+    width: 90%;
+}
+
 #banner {
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAB5CAIAAAB3BtxyAAAAUElEQVR4AWLg0Q9iYmBgGGAM6HMMUACGQRjIRf//5oGwYVYtADZp7yo1Qd6DZ8XJFsN79v7GEvs9atPfI60ed8TsAssr1/7h63LcGXPl3/8ANSIB8y+gfDQAAAAASUVORK5CYII=);
     border-radius: 12px 12px 0 0;
