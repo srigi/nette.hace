@@ -1,22 +1,4 @@
 ---
-kind: PersistentVolume
-apiVersion: v1
-metadata:
-  name: database
-  namespace: hace
-spec:
-  accessModes:
-    - ReadWriteOnce
-  capacity:
-    storage: 1Gi
-  hostPath:
-    path: "/Users/srigi/Sites/projects/nette/hace/.data"
-    type: DirectoryOrCreate
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: local
-  volumeMode: Filesystem
-
----
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:

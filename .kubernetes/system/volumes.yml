@@ -1,0 +1,24 @@
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: database
+  namespace: hace
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  local:
+    path: /mnt/volumes/database
+  nodeAffinity:
+      required:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - k8s-node01
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local
+  volumeMode: Filesystem
