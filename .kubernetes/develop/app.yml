@@ -20,10 +20,6 @@ spec:
           env:
             - name: APP_DEBUG
               value: '0'
-            - name: APP_HOST_PROTO
-              value: http
-            - name: APP_HOST_URI
-              value: www.hace.test:30080
           ports:
             - containerPort: 9000
 
