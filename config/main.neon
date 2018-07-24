@@ -7,6 +7,7 @@ includes:
   - extensions/console.neon
   - extensions/database.neon
   - extensions/decorator.neon
+  - extensions/http.neon
   - extensions/migrations.neon
   - extensions/monolog.neon
   - extensions/session.neon
