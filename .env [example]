@@ -14,4 +14,4 @@ FCGI_READ_TIMEOUT=3600s
 
 # Xdebug
 PHP_IDE_CONFIG=serverName=www.hace.test
-XDEBUG_CONFIG=remote_host=10.100.100.1
+XDEBUG_CONFIG=remote_host=docker.for.mac.localhost
