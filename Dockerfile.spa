@@ -5,8 +5,11 @@ RUN mkdir /var/run/nginx \
 	&& chmod ug+w /var/run/nginx
 COPY ./.docker/bin/spa-foreground.sh /usr/local/bin/
 
-ARG WEBSERVER_TEMPLATE=spa.template.nginx
-COPY ./.docker/$WEBSERVER_TEMPLATE /etc/nginx/nginx.conf
+ARG SPA_NGINX_PORT
+ENV SPA_NGINX_PORT=$SPA_NGINX_PORT
+ARG SPA_NGINX_TEMPLATE=spa.template.nginx
+COPY ./.docker/$SPA_NGINX_TEMPLATE /etc/nginx/spa.template.nginx
+RUN envsubst '\$SPA_NGINX_PORT' < /etc/nginx/spa.template.nginx > /etc/nginx/nginx.conf
 
 WORKDIR /app
 COPY ./spa/styles ./styles/

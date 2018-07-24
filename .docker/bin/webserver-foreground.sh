@@ -2,5 +2,5 @@
 
 set -euxo pipefail # fail hard
 
-wait-for-it -t $APP_HOST_TIMEOUT $APP_HOST
+wait-for-it -t 30 $FCGI_HOST
 exec nginx -g 'daemon off;'

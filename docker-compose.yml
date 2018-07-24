@@ -5,8 +5,9 @@ services:
     image: adminer
     env_file:
       - .env
-    ports:
-      - "127.0.0.1:${ADMINER_HOST_PORT}:8080"
+    labels:
+      - traefik.frontend.rule=Host:$ADMINER_HOSTNAME
+      - traefik.port=$ADMINER_PORT
     volumes:
       - adminer:/tmp
 
@@ -85,30 +86,43 @@ services:
       context: .
       dockerfile: Dockerfile.webserver
       args:
+        FCGI_HOST: app:9000
         FCGI_READ_TIMEOUT: $FCGI_READ_TIMEOUT
-        WEBSERVER_TEMPLATE: 'webserver.template.dev.nginx'
+        WEBSERVER_NGINX_PORT: $WEBSERVER_NGINX_PORT
+        WEBSERVER_NGINX_TEMPLATE: 'webserver.template.dev.nginx'
     image: srigi/hace/webserver
     env_file:
       - .env
     depends_on:
       - app
-    ports:
-      - "127.0.0.1:${WEBSERVER_HOST_PORT}:8000"
+    labels:
+      - traefik.frontend.rule=Host:$WEBSERVER_HOSTNAME
+      - traefik.port=$WEBSERVER_NGINX_PORT
     volumes:
       - ./www:/app/www
+
+  proxy:
+    image: traefik
+    ports:
+      - 127.0.0.1:$INGRESS_HOST_PORT:80
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --docker
 
   spa:
     build:
       context: .
       dockerfile: Dockerfile.spa
       args:
-        API_HOST: $APP_HOST_URI
-        WEBSERVER_TEMPLATE: 'spa.template.dev.nginx'
+        API_HOST: "$WEBSERVER_HOSTNAME:$INGRESS_HOST_PORT"
+        SPA_NGINX_PORT: $SPA_NGINX_PORT
+        SPA_NGINX_TEMPLATE: 'spa.template.dev.nginx'
     image: srigi/hace/spa
     env_file:
       - .env
-    ports:
-      - "127.0.0.1:${SPA_HOST_PORT}:8000"
+    labels:
+      - traefik.frontend.rule=Host:$SPA_HOSTNAME
+      - traefik.port=$SPA_NGINX_PORT
 
   database:
     image: postgres:11-alpine

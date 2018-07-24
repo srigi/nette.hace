@@ -19,7 +19,7 @@ http {
     gzip off;
 
     server {
-        listen 8000;
+        listen $SPA_NGINX_PORT;
         index index.html;
 
         location / {
