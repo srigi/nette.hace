@@ -10,7 +10,7 @@ spec:
     spec:
       containers:
         - name: database-migration
-          image: 192.168.0.101:5000/srigi/hace
+          image: 192.168.0.101:5000/srigi/hace/app
           imagePullPolicy: Always
           env:
             - name: APP_DEBUG

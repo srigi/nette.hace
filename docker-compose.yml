@@ -19,7 +19,7 @@ services:
         IS_PROD_BUILD: 0
         PHP_INI: php-dev.ini
         TIMEZONE: $TIMEZONE
-    image: srigi/hace
+    image: srigi/hace/app
     env_file:
       - .env
     depends_on:
@@ -35,7 +35,7 @@ services:
       - ./composer.lock:/app/composer.lock
 
   migrations:
-    image: srigi/hace
+    image: srigi/hace/app
     env_file:
       - .env
     depends_on:
@@ -49,7 +49,7 @@ services:
     command: sh -c 'wait-for-it database:5432 && bin/console migrations:continue --no-interaction'
 
   parallel-lint:
-    image: srigi/hace
+    image: srigi/hace/app
     volumes:
       - ./.docker/php-dev.ini:/usr/local/etc/php/php.ini:ro
       - ./bin:/app/bin
@@ -59,7 +59,7 @@ services:
     command: bin/parallel-lint --no-progress -e php bin/ config/ migrations/ src/ www/
 
   phpcs:
-    image: srigi/hace
+    image: srigi/hace/app
     volumes:
       - ./.docker/php-dev.ini:/usr/local/etc/php/php.ini:ro
       - ./bin:/app/bin
@@ -70,7 +70,7 @@ services:
     command: bin/phpcs --extensions=php --standard=coding-standards.xml
 
   phpstan:
-    image: srigi/hace
+    image: srigi/hace/app
     volumes:
       - ./.docker/php-dev.ini:/usr/local/etc/php/php.ini:ro
       - ./bin:/app/bin
