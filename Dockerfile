@@ -33,7 +33,9 @@ RUN ln -sf "/usr/share/zoneinfo/$TIMEZONE" /etc/localtime \
 		&& chown www-data:www-data /var/www
 
 COPY ./.docker/bin/wait-for-it /usr/local/bin/
-COPY ./.docker/php.ini /usr/local/etc/php/
+
+ARG PHP_INI=php.ini
+COPY ./.docker/$PHP_INI /usr/local/etc/php/php.ini
 
 # Prepare app workdir & tools, switch to unprivileged user
 WORKDIR /app
