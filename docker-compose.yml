@@ -86,7 +86,6 @@ services:
       context: .
       dockerfile: Dockerfile.webserver
       args:
-        FCGI_HOST: app:9000
         FCGI_READ_TIMEOUT: $FCGI_READ_TIMEOUT
         WEBSERVER_NGINX_PORT: $WEBSERVER_NGINX_PORT
         WEBSERVER_NGINX_TEMPLATE: 'webserver.template.dev.nginx'
