@@ -32,7 +32,7 @@ a:focus {
 }
 
     #banner h1 {
-        background: url(https://files.nette.org/images/logo-nette@2.png) no-repeat 95%;
+        background: url('/assets/logo.png') no-repeat 95%;
         background-size: 130px auto; text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.9);
         color: white;
         font: inherit;

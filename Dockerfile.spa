@@ -12,9 +12,8 @@ COPY ./.docker/$SPA_NGINX_TEMPLATE /etc/nginx/spa.template.nginx
 RUN envsubst '\$SPA_NGINX_PORT' < /etc/nginx/spa.template.nginx > /etc/nginx/nginx.conf
 
 WORKDIR /app
-COPY ./spa/styles ./styles/
+COPY ./spa/assets ./assets/
 COPY ./spa/index.html ./index.template.html
-COPY ./spa/main.js ./
 
 ARG API_HOST
 ENV API_HOST=$API_HOST
