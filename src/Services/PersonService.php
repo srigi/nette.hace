@@ -54,7 +54,7 @@ class PersonService
     public function find(string $pk): ?Database\Row
     {
         $result = $this->database->fetch('SELECT * FROM person WHERE uuid = ?', $pk);
-        if (!($result instanceof Database\IRow)) {
+        if ($result === false) {
             $result = null;
         }
 
@@ -63,7 +63,7 @@ class PersonService
 
     public function createOne(Utils\ArrayHash $data): Uuid\UuidInterface
     {
-        if (empty($data['name'])) {
+        if (!isset($data['name']) || $data['name'] === null) {
             throw new Application\BadRequestException(
                 'Provided data doesn\'t contain required props',
                 IResponse::S412_PRECONDITION_FAILED
@@ -87,7 +87,7 @@ class PersonService
 
     public function updateOne(Database\Row $person, Utils\ArrayHash $data): ?Database\Row
     {
-        if (empty($data['name'])) {
+        if (!isset($data['name']) || $data['name'] === null) {
             throw new Application\BadRequestException(
                 'Provided data doesn\'t contain required props',
                 IResponse::S412_PRECONDITION_FAILED

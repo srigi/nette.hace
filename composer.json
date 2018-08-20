@@ -49,8 +49,9 @@
         "jakub-onderka/php-console-highlighter": "~0.3.2",
         "jakub-onderka/php-parallel-lint": "~1.0.0",
         "phpstan/phpstan": "~0.10.1",
+        "phpstan/phpstan-strict-rules": "^0.10.1",
         "roave/security-advisories": "dev-master",
-        "slevomat/coding-standard": "~4.6.3"
+        "slevomat/coding-standard": "~4.6"
     },
     "type": "project"
 }

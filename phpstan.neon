@@ -3,3 +3,7 @@ parameters:
   ignoreErrors:
     - '#Access to an undefined property Nette\\Application\\UI\\ITemplate|stdClass#'
     - '#Call to an undefined method [^\s]+RestPresenter::action[\w]+()#'
+    - '#Strict comparison using === between Nette\\Database\\Row and false will always evaluate to false#'
+
+includes:
+  - vendor/phpstan/phpstan-strict-rules/rules.neon
