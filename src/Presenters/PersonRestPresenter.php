@@ -30,7 +30,9 @@ class PersonRestPresenter extends RestPresenter
                 return $this->sendJson(['status' => 'not found'], Http\IResponse::S404_NOT_FOUND);
             }
         } else {
-            $data = $this->personService->fetchAll();
+            $data = $this->personService->fetchAll([
+                'created_time' => 'DESC',
+            ]);
         }
 
         return $this->sendJson([
