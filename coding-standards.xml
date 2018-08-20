@@ -1,11 +1,5 @@
 <?xml version="1.0"?>
 <ruleset name="Srigi Hace">
-    <rule ref="Generic.WhiteSpace.ScopeIndent">
-        <properties>
-            <property name="tabIndent" value="false" />
-        </properties>
-    </rule>
-
     <rule ref="vendor/consistence/coding-standard/Consistence/ruleset.xml">
         <exclude name="Generic.WhiteSpace.DisallowSpaceIndent" />
     </rule>
