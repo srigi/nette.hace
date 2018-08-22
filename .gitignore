@@ -20,6 +20,7 @@ nbproject
 
 ## Folders to ignore
 /.data
+/demos
 /my_resources
 /vendor
 
