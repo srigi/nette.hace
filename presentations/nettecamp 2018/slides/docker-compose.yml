@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  webserver:
+    build:
+      context: .
+    image: srigi/hace/presentations/nettecamp-2018
+    ports:
+      - 127.0.0.1:3000:80
+    volumes:
+      - ./css/index.css:/usr/share/nginx/html/css/index.css
+      - ./index.html:/usr/share/nginx/html/index.html
+      - ./imgs:/usr/share/nginx/html/imgs
