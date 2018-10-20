@@ -27,7 +27,7 @@ http {
         }
 
         location ~ \.php {
-            include webserver.frontcontroller.conf;
+            include frontcontroller.conf;
         }
     }
 }

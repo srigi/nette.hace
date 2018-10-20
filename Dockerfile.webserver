@@ -1,25 +1,28 @@
-FROM nginx:1.15-alpine
+FROM nginx:alpine
 
+	# install deps. for `wait-for-it`
 RUN apk add --update --no-cache \
 		bash \
 		coreutils \
+	# setup pidfile fully owned by "nginx" user/process
 	&& mkdir /var/run/nginx \
 	&& chown nginx:nginx /var/run/nginx \
 	&& chmod ug+w /var/run/nginx
 COPY ./.docker/bin/wait-for-it ./.docker/bin/webserver-foreground.sh /usr/local/bin/
 
-ARG FCGI_HOST=app:9000
-ENV FCGI_HOST=$FCGI_HOST
+# compile webserver.frontcontroller.conf
 ARG FCGI_READ_TIMEOUT=60s
-ENV FCGI_READ_TIMEOUT=$FCGI_READ_TIMEOUT
-COPY ./.docker/webserver.frontcontroller.conf /etc/nginx/webserver.frontcontroller.template.conf
-RUN envsubst '\$FCGI_HOST \$FCGI_READ_TIMEOUT' < /etc/nginx/webserver.frontcontroller.template.conf > /etc/nginx/webserver.frontcontroller.conf
+ENV FCGI_HOST=app:9000 \
+	FCGI_READ_TIMEOUT=$FCGI_READ_TIMEOUT
+COPY ./.docker/webserver-frontcontroller.template.nginx /etc/nginx/frontcontroller.template.conf
+RUN envsubst '\$FCGI_HOST \$FCGI_READ_TIMEOUT' < /etc/nginx/frontcontroller.template.conf > /etc/nginx/frontcontroller.conf
 
+# compile nginx.conf
 ARG WEBSERVER_NGINX_PORT
 ENV WEBSERVER_NGINX_PORT=$WEBSERVER_NGINX_PORT
 ARG WEBSERVER_NGINX_TEMPLATE=webserver.template.nginx
-COPY ./.docker/$WEBSERVER_NGINX_TEMPLATE /etc/nginx/webserver.template.nginx
-RUN envsubst '\$WEBSERVER_NGINX_PORT' < /etc/nginx/webserver.template.nginx > /etc/nginx/nginx.conf
+COPY ./.docker/$WEBSERVER_NGINX_TEMPLATE /etc/nginx/nginx.template.conf
+RUN envsubst '\$WEBSERVER_NGINX_PORT' < /etc/nginx/nginx.template.conf > /etc/nginx/nginx.conf
 
 WORKDIR /app
 COPY ./www/ ./www/

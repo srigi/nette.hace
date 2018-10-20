@@ -1,20 +1,23 @@
-FROM nginx:1.15-alpine
+FROM nginx:alpine
 
+	# setup pidfile fully owned by "nginx" user/process
 RUN mkdir /var/run/nginx \
 	&& chown nginx:nginx /var/run/nginx \
 	&& chmod ug+w /var/run/nginx
 COPY ./.docker/bin/spa-foreground.sh /usr/local/bin/
 
+# compile nginx.conf
 ARG SPA_NGINX_PORT
 ENV SPA_NGINX_PORT=$SPA_NGINX_PORT
 ARG SPA_NGINX_TEMPLATE=spa.template.nginx
-COPY ./.docker/$SPA_NGINX_TEMPLATE /etc/nginx/spa.template.nginx
-RUN envsubst '\$SPA_NGINX_PORT' < /etc/nginx/spa.template.nginx > /etc/nginx/nginx.conf
+COPY ./.docker/$SPA_NGINX_TEMPLATE /etc/nginx/nginx.template.conf
+RUN envsubst '\$SPA_NGINX_PORT' < /etc/nginx/nginx.template.conf > /etc/nginx/nginx.conf
 
 WORKDIR /app
 COPY ./spa/assets ./assets/
 COPY ./spa/index.html ./index.template.html
 
+# compile /app/index.html
 ARG API_HOST
 ENV API_HOST=$API_HOST
 RUN envsubst '\$API_HOST' < ./index.template.html > ./index.html \
