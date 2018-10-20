@@ -11,6 +11,7 @@ WEBSERVER_NGINX_PORT=8000
 ADMINER_HOSTNAME=adminer.hace.local
 ADMINER_PORT=8080
 FCGI_READ_TIMEOUT=3600s
+REMOTE_REPO_ADDR=host.docker.internal:5000
 
 # Xdebug
 PHP_IDE_CONFIG=serverName=www.hace.local

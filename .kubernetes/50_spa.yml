@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: spa
-          image: 192.168.0.101:5000/srigi/hace/spa
+          image: host.docker.internal:5000/srigi/hace/spa
           imagePullPolicy: Always
           ports:
             - containerPort: 8000
@@ -44,7 +44,7 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-    - host: spa.doveah.com
+    - host: "spa.hace.local"
       http:
         paths:
           - path: /

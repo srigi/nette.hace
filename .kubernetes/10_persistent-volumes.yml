@@ -1,0 +1,33 @@
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: database
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 500Mi
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
+
+  ### local K8S cluster
+  ###
+  hostPath:
+    path: /tmp/database-hace
+    type: DirectoryOrCreate
+  storageClassName: local
+
+#  ### bare-metal K8S cluster
+#  ###
+#  local:
+#    path: /tmp/database
+#  nodeAffinity:
+#      required:
+#        nodeSelectorTerms:
+#        - matchExpressions:
+#          - key: kubernetes.io/hostname
+#            operator: In
+#            values:
+#              - k8s-node01
+#  storageClassName: ssd
