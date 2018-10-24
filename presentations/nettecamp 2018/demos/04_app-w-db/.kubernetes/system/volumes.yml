@@ -1,0 +1,29 @@
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: database
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  hostPath:
+    path: /Users/srigi/demos/04_app-w-db/.data
+    type: DirectoryOrCreate
+
+  #local:
+  #  path: /mnt/data/database
+
+  #nodeAffinity:
+  #    required:
+  #      nodeSelectorTerms:
+  #      - matchExpressions:
+  #        - key: kubernetes.io/hostname
+  #          operator: In
+  #          values:
+  #            - connor.local
+
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local
+  volumeMode: Filesystem

@@ -8,7 +8,7 @@ Nette hace
 
 This project represents a simple CRUD webapplication. In fact there are two webapps - classical MVC with server-side templates and framework. This MVC webapp also have a REST endpoint. Second webapp is a SPA that consumes that REST endpoint and provides alternative interface for our CRUD webapp.
 
-![stack](https://i.postimg.cc/BvJGsCbH/stack.png)
+![stack](https://i.postimg.cc/nhpX0xmb/stack.png)
 
 **MVC** (in this example **MVP** - Model View Presenter) webapp is written in [Nette framework](https://github.com/nette). **SPA** is written in [Next.js](https://nextjs.org). Both applications are written honoring [Cloud&nbsp;native philosophy and 12&nbsp;factor&nbsp;app design methodology](https://www.cuelogic.com/blog/12-factor-design-methodology-and-cloud-native-applications). All logs and errors are forwarded to `stdout`, `stderr`. Everything is running as a single process inside containers. 
 
@@ -278,4 +278,4 @@ extra notes
 license
 -------
 
-MIT.
+MIT

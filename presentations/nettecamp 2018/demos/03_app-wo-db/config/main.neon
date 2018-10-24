@@ -1,0 +1,19 @@
+includes:
+  - parameters.neon
+  - parameters.php
+
+  # extensions
+  - extensions/application.neon
+  - extensions/console.neon
+  - extensions/database.neon
+  - extensions/decorator.neon
+  - extensions/http.neon
+  - extensions/migrations.neon
+  - extensions/monolog.neon
+  - extensions/session.neon
+
+  # services
+  - services/router.neon
+
+services:
+  - App\Services\PersonService

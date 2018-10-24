@@ -1,0 +1,92 @@
+version: '2'
+
+services:
+  app:
+    build:
+      context: .
+      args:
+        APP_DEBUG: $APP_DEBUG
+        IS_PROD_BUILD: 0
+        PHP_INI: php-dev.ini
+        TIMEZONE: $TIMEZONE
+    image: srigi/hace/app
+    env_file:
+      - .env
+    depends_on:
+      - database
+    volumes:
+      - ./bin:/app/bin
+      - ./config:/app/config
+      - ./migrations:/app/migrations
+      - ./src:/app/src
+      - ./www:/app/www
+      - ./var:/app/var
+      - ./composer.json:/app/composer.json
+      - ./composer.lock:/app/composer.lock
+
+  migrations:
+    image: srigi/hace/app
+    env_file:
+      - .env
+    depends_on:
+      - database
+    volumes:
+      - ./.docker/php-dev.ini:/usr/local/etc/php/php.ini:ro
+      - ./bin:/app/bin
+      - ./config:/app/config
+      - ./migrations:/app/migrations
+      - ./var:/app/var
+    command: sh -c 'wait-for-it database:5432 && bin/console migrations:continue --no-interaction'
+
+  webserver:
+    build:
+      context: .
+      dockerfile: Dockerfile.webserver
+      args:
+        FCGI_READ_TIMEOUT: $FCGI_READ_TIMEOUT
+        WEBSERVER_NGINX_PORT: $WEBSERVER_NGINX_PORT
+        WEBSERVER_NGINX_TEMPLATE: 'webserver.template.dev.nginx'
+    image: srigi/hace/webserver
+    env_file:
+      - .env
+    depends_on:
+      - app
+    labels:
+      - traefik.frontend.rule=Host:$WEBSERVER_HOSTNAME
+      - traefik.port=$WEBSERVER_NGINX_PORT
+    volumes:
+      - ./www:/app/www
+
+  proxy:
+    image: traefik
+    ports:
+      - 127.0.0.1:$INGRESS_HOST_PORT:80
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --docker
+
+  spa:
+    build:
+      context: .
+      dockerfile: Dockerfile.spa
+      args:
+        API_HOST: "$WEBSERVER_HOSTNAME:$INGRESS_HOST_PORT"
+        SPA_NGINX_PORT: $SPA_NGINX_PORT
+        SPA_NGINX_TEMPLATE: 'spa.template.dev.nginx'
+    image: srigi/hace/spa
+    env_file:
+      - .env
+    labels:
+      - traefik.frontend.rule=Host:$SPA_HOSTNAME
+      - traefik.port=$SPA_NGINX_PORT
+
+  database:
+    image: postgres:11-alpine
+    environment:
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - database:/var/lib/postgresql/data
+
+volumes:
+  adminer:
+  database:

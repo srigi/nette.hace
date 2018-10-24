@@ -1,0 +1,30 @@
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: database
+  namespace: hace
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  hostPath:
+    path: /Users/srigi/demos/05_mvc-and-spa/.data
+    type: DirectoryOrCreate
+
+  #local:
+  #  path: /Users/srigi/Sites/projects/nette/hace/demos/04_app-w-db/.data
+
+  #nodeAffinity:
+  #    required:
+  #      nodeSelectorTerms:
+  #      - matchExpressions:
+  #        - key: kubernetes.io/hostname
+  #          operator: In
+  #          values:
+  #            - connor.local
+
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local
+  volumeMode: Filesystem

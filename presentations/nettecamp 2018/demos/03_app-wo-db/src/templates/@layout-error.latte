@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <meta name="robots" content="noindex">
+  <title>{ifset title}{include title|stripHtml|trim} • {/ifset}{$siteName}</title>
+
+  <style>
+    #nette-error { all:initial; display:flex; align-items:center; justify-content:center; height:70vh; min-height:400px; position:absolute; top:0; left:0; right:0; z-index:1000 }
+    #nette-error div { all:initial; background:white; color:#333; display:block ; max-width:550px; }
+    #nette-error h1 { all:initial; display:block; font:bold 50px/1.1 sans-serif; margin:40px }
+    #nette-error p { all:initial; display:block; font:20px/1.4 sans-serif; margin:40px }
+    #nette-error small { color:gray }
+  </style>
+</head>
+<body>
+  <div id="nette-error">
+    <div>
+      <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+
+      {include content}
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+        - name: app
+          image: 10.100.100.1:5000/srigi/hace/app
+          imagePullPolicy: Always
+          env:
+            - name: APP_DEBUG
+              value: '1'
+          ports:
+            - containerPort: 9000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app
+spec:
+  selector:
+    app: app
+  ports:
+    - port: 9000

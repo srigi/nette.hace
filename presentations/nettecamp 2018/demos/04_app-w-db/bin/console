@@ -1,0 +1,14 @@
+#!/usr/bin/env php
+
+<?php
+
+use Nette\DI;
+use Symfony\Component\Console;
+
+/** @var DI\Container $container */
+$container = require __DIR__ . '/../src/bootstrap.php';
+
+/** @var Console\Application $console */
+$console = $container->getByType(Console\Application::class);
+
+exit($console->run());

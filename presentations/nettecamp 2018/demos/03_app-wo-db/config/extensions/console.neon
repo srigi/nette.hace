@@ -1,0 +1,5 @@
+extensions:
+  console: Kdyby\Console\DI\ConsoleExtension
+
+
+console:
