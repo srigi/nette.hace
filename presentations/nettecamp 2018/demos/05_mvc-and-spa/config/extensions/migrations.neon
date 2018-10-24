@@ -1,0 +1,8 @@
+extensions:
+  migrations: Nextras\Migrations\Bridges\NetteDI\MigrationsExtension
+
+migrations:
+  dir: %appDir%/../migrations
+  driver: pgsql
+  dbal: nette
+  withDummyData: %debugMode%

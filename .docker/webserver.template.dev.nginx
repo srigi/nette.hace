@@ -19,7 +19,7 @@ http {
     gzip off;
 
     server {
-        listen 8000;
+        listen $WEBSERVER_NGINX_PORT;
         root /app/www;
 
         location / {
@@ -27,7 +27,7 @@ http {
         }
 
         location ~ \.php {
-            include webserver.frontcontroller.conf;
+            include frontcontroller.conf;
         }
     }
 }

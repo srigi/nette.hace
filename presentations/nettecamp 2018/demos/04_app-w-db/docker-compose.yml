@@ -1,0 +1,48 @@
+version: '2'
+
+services:
+  app:
+    build:
+      context: .
+      args:
+        APP_DEBUG: $APP_DEBUG
+        IS_PROD_BUILD: 0
+        PHP_INI: php-dev.ini
+        TIMEZONE: $TIMEZONE
+    image: srigi/hace/app
+    env_file:
+      - .env
+    depends_on:
+      - database
+
+  migrations:
+    image: srigi/hace/app
+    env_file:
+      - .env
+    depends_on:
+      - database
+    command: sh -c 'wait-for-it database:5432 && bin/console migrations:continue --no-interaction'
+
+  webserver:
+    build:
+      context: .
+      dockerfile: Dockerfile.webserver
+      args:
+        WEBSERVER_NGINX_PORT: $WEBSERVER_NGINX_PORT
+    image: srigi/hace/webserver
+    env_file:
+      - .env
+    depends_on:
+      - app
+    ports:
+      - 127.0.0.1:$DEMO_04_HOST_PORT:$WEBSERVER_NGINX_PORT
+
+  database:
+    image: postgres:11-alpine
+    environment:
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - database:/var/lib/postgresql/data
+
+volumes:
+  database:

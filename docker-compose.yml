@@ -5,8 +5,9 @@ services:
     image: adminer
     env_file:
       - .env
-    ports:
-      - "127.0.0.1:${HOST_PORT_ADMINER}:8080"
+    labels:
+      - traefik.frontend.rule=Host:$ADMINER_HOSTNAME
+      - traefik.port=$ADMINER_PORT
     volumes:
       - adminer:/tmp
 
@@ -16,14 +17,14 @@ services:
       args:
         APP_DEBUG: $APP_DEBUG
         IS_PROD_BUILD: 0
+        PHP_INI: php-dev.ini
         TIMEZONE: $TIMEZONE
-    image: srigi/hace
+    image: srigi/hace/app
     env_file:
       - .env
     depends_on:
       - database
     volumes:
-      - ./.docker/php-dev.ini:/usr/local/etc/php/php.ini:ro
       - ./bin:/app/bin
       - ./config:/app/config
       - ./migrations:/app/migrations
@@ -34,7 +35,7 @@ services:
       - ./composer.lock:/app/composer.lock
 
   migrations:
-    image: srigi/hace
+    image: srigi/hace/app
     env_file:
       - .env
     depends_on:
@@ -48,7 +49,7 @@ services:
     command: sh -c 'wait-for-it database:5432 && bin/console migrations:continue --no-interaction'
 
   parallel-lint:
-    image: srigi/hace
+    image: srigi/hace/app
     volumes:
       - ./.docker/php-dev.ini:/usr/local/etc/php/php.ini:ro
       - ./bin:/app/bin
@@ -58,7 +59,7 @@ services:
     command: bin/parallel-lint --no-progress -e php bin/ config/ migrations/ src/ www/
 
   phpcs:
-    image: srigi/hace
+    image: srigi/hace/app
     volumes:
       - ./.docker/php-dev.ini:/usr/local/etc/php/php.ini:ro
       - ./bin:/app/bin
@@ -69,12 +70,13 @@ services:
     command: bin/phpcs --extensions=php --standard=coding-standards.xml
 
   phpstan:
-    image: srigi/hace
+    image: srigi/hace/app
     volumes:
       - ./.docker/php-dev.ini:/usr/local/etc/php/php.ini:ro
       - ./bin:/app/bin
       - ./config:/app/config
       - ./src:/app/src
+      - ./var:/app/var
       - ./www:/app/www
       - ./phpstan.neon:/app/phpstan.neon
     command: bin/phpstan analyse -c phpstan.neon --no-progress --level 7 bin/console config/ src/ www/
@@ -85,16 +87,41 @@ services:
       dockerfile: Dockerfile.webserver
       args:
         FCGI_READ_TIMEOUT: $FCGI_READ_TIMEOUT
-        WEBSERVER_TEMPLATE: 'webserver.template.dev.nginx'
+        WEBSERVER_NGINX_PORT: $WEBSERVER_NGINX_PORT
+        WEBSERVER_NGINX_TEMPLATE: 'webserver.template.dev.nginx'
     image: srigi/hace/webserver
     env_file:
       - .env
     depends_on:
       - app
-    ports:
-      - "127.0.0.1:${HOST_PORT_APP}:8000"
+    labels:
+      - traefik.frontend.rule=Host:$WEBSERVER_HOSTNAME
+      - traefik.port=$WEBSERVER_NGINX_PORT
     volumes:
       - ./www:/app/www
+
+  proxy:
+    image: traefik
+    ports:
+      - 127.0.0.1:$INGRESS_HOST_PORT:80
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --docker
+
+  spa:
+    build:
+      context: .
+      dockerfile: Dockerfile.spa
+      args:
+        API_HOST: "$WEBSERVER_HOSTNAME:$INGRESS_HOST_PORT"
+        SPA_NGINX_PORT: $SPA_NGINX_PORT
+        SPA_NGINX_TEMPLATE: 'spa.template.dev.nginx'
+    image: srigi/hace/spa
+    env_file:
+      - .env
+    labels:
+      - traefik.frontend.rule=Host:$SPA_HOSTNAME
+      - traefik.port=$SPA_NGINX_PORT
 
   database:
     image: postgres:11-alpine

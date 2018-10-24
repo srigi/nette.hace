@@ -1,0 +1,19 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: database-migration.0
+  namespace: hace
+spec:
+  backoffLimit: 3
+  template:
+    spec:
+      containers:
+        - name: database-migration
+          image: 10.100.100.1:5000/srigi/hace/app
+          imagePullPolicy: Always
+          env:
+            - name: APP_DEBUG
+              value: '0'
+          command: ['sh', '-c', 'wait-for-it database:5432 && bin/console migrations:continue --no-interaction']
+      restartPolicy: Never

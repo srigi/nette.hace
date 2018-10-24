@@ -1,0 +1,4 @@
+decorator:
+  App\Presenters\WebPresenter:
+    setup:
+      - $siteName(%siteName%)

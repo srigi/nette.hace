@@ -1,0 +1,17 @@
+{layout '../@layout-site.latte'}
+
+{block content}
+  <div id="banner">
+    <h1 n:block=title>Persons list</h1>
+  </div>
+
+  <div id="content">
+    <p>Go to <a n:href="Homepage:">homepage</a></p>
+    <p class="flexo">
+      <span>Total count: <strong>{$persons->getRowCount()}</strong></span>
+      <span><a n:href="add">add another</a></span>
+    </p>
+    <ul>
+      <li n:foreach="$persons as $person"><a n:href="edit uuid => $person->uuid">{$person->name}</a></li>
+    </ul>
+  </div>

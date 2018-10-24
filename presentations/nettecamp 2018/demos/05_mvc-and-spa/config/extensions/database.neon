@@ -1,0 +1,4 @@
+database:
+  dsn: 'pgsql:host=database;dbname=postgres'
+  user: postgres
+  password: secret

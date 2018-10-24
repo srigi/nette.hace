@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+  namespace: hace
+spec:
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+        - name: app
+          image: host.docker.internal:5000/srigi/hace/app
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app
+  namespace: hace
+spec:
+  selector:
+    app: app
+  ports:
+    - port: 9000

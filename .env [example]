@@ -1,10 +1,18 @@
-APP_DEBUG=1
-FCGI_READ_TIMEOUT=3600s
-HOST_PORT_ADMINER=8003
-HOST_PORT_APP=8000
-HOST_URI=www.hace.test:8000
+# Essential ENVs
 TIMEZONE=Europe/Prague
+APP_DEBUG=1
+INGRESS_HOST_PORT=8000
+SPA_HOSTNAME=spa.hace.local
+SPA_NGINX_PORT=8000
+WEBSERVER_HOSTNAME=www.hace.local
+WEBSERVER_NGINX_PORT=8000
+
+# Utility ENVs
+ADMINER_HOSTNAME=adminer.hace.local
+ADMINER_PORT=8080
+FCGI_READ_TIMEOUT=3600s
+REMOTE_REPO_ADDR=host.docker.internal:5000
 
 # Xdebug
-PHP_IDE_CONFIG=serverName=www.hace.test
-XDEBUG_CONFIG=remote_host=10.100.100.1
+PHP_IDE_CONFIG=serverName=www.hace.local
+XDEBUG_CONFIG=remote_host=docker.for.mac.localhost

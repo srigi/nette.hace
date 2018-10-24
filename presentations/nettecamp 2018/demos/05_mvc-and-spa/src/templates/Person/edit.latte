@@ -1,0 +1,11 @@
+{layout '../@layout-site.latte'}
+
+{block content}
+  <div id="banner">
+    <h1 n:block=title>Edit person</h1>
+  </div>
+
+  <div id="content">
+    <p>Go to <a n:href="Homepage:">homepage</a>, <a n:href="Person:">persons list</a></p>
+    {control personForm}
+  </div>

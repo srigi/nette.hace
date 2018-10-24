@@ -1,0 +1,312 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Intro to Kubernetes • Nettecamp 18.08</title>
+
+  <link rel="stylesheet" href="css/lib/reveal.css">
+  <link rel="stylesheet" href="css/theme/simple.css">
+  <link rel="stylesheet" href="css/lib/zenburn.css">
+  <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h1>Intro to</h1>
+        <img class="z66" src="imgs/logo-k8s.png">
+      </section><!-- headline -->
+
+      <section>
+        <img  src="imgs/srigi.png" class="z150">
+        <h4><a href="https://twitter.com/srigi">@srigi</a></h4>
+      </section><!-- srigi -->
+
+      <section>
+        <img src="imgs/app.png">
+      </section>
+
+      <section>
+        <img  src="imgs/app-schema_01.png" class="z90">
+      </section><!-- app-schema -->
+      <section>
+        <img  src="imgs/app-schema_02.png" class="z90">
+      </section><!-- app-schema -->
+      <section>
+        <img  src="imgs/app-schema_03.png" class="z90">
+      </section><!-- app-schema -->
+      <section>
+        <img  src="imgs/app-schema_04.png" class="z90">
+      </section><!-- app-schema -->
+      <section>
+        <img  src="imgs/app-schema_05.png" class="z90">
+      </section><!-- app-schema -->
+      <section>
+        <img  src="imgs/app-schema_06.png" class="z90">
+      </section><!-- app-schema -->
+      <section>
+        <img  src="imgs/app-schema_07.png" class="z90">
+      </section><!-- app-schema -->
+      <section>
+        <img  src="imgs/app-schema_08.png" class="z90">
+      </section><!-- app-schema -->
+      <section>
+        <img  src="imgs/app-schema_09.png" class="z90">
+      </section><!-- app-schema -->
+      <section>
+        <img  src="imgs/app-schema_10.png" class="z90">
+      </section><!-- app-schema -->
+
+      <section>
+        <img  src="imgs/app-webserver.png" class="z90">
+      </section><!-- app-webserver -->
+
+      <section>
+        <img  src="imgs/app-app.png" class="z55">
+      </section><!-- app-app -->
+      <section>
+        <img  src="imgs/app-app-w-schema.png" class="z55">
+      </section><!-- app-app-w-schema -->
+
+      <section>
+        <img  src="imgs/app-schema_docker-compose.png" class="z33">
+      </section><!-- app-schema docker-compose file -->
+
+      <section>
+        <img  src="imgs/kubertes.png" class="z125">
+      </section><!-- k8s cluster -->
+
+      <section>
+        <img  src="imgs/public-clouds.png">
+        <img  src="imgs/docker-for-mac.png" class="fragment">
+      </section><!-- public-clouds -->
+
+      <section>
+        <a href="https://blog.sourcerer.io/a-kubernetes-quick-start-for-people-who-know-just-enough-about-docker-to-get-by-71c5933b4633"><img  src="imgs/k8s-on-baremetal.jpg" class="z90"></a>
+      </section><!-- k8s-on-baremetal -->
+
+      <section>
+        <h2>k8s Hello World!</h2>
+        <img  src="imgs/logo-nginx.png" class="fragment z33">
+      </section><!-- k8s Hello World! -->
+
+      <section>
+        <img  src="imgs/butt.jpg" class="z90">
+      </section><!-- butt -->
+
+      <section>
+        <a href="https://www.ianlewis.org/en/what-are-kubernetes-pods-anyway"><img  src="imgs/what-are-pods.png"></a>
+      </section><!-- what-are-kubernetes-pods-anyway -->
+
+      <section>
+        <img  src="imgs/nginx-machine.png">
+      </section><!-- nginx-machine -->
+
+      <section>
+        <img  src="imgs/nginx-container-ps.png">
+        <img  src="imgs/nginx-container-ls.png" class="fragment">
+      </section><!-- nginx-container -->
+
+      <section>
+        <img  src="imgs/container-explain_01.png">
+      </section><!-- container-explain -->
+      <section>
+        <img  src="imgs/container-explain_02.png">
+      </section><!-- container-explain -->
+      <section>
+        <img  src="imgs/container-explain_03.png">
+      </section><!-- container-explain -->
+      <section>
+        <img  src="imgs/container-explain_04.png">
+      </section><!-- container-explain -->
+      <section>
+        <img  src="imgs/container-explain_05.png">
+      </section><!-- container-explain -->
+      <section>
+        <img  src="imgs/container-explain_06.png">
+      </section><!-- container-explain -->
+      <section>
+        <img  src="imgs/container-explain_07.png">
+      </section><!-- container-explain -->
+
+      <section>
+        <img  src="imgs/to-the-pod_01.png">
+      </section><!-- to-the-pod -->
+      <section>
+        <img  src="imgs/to-the-pod_02.png">
+      </section><!-- to-the-pod -->
+      <section>
+        <img  src="imgs/to-the-pod_03.png">
+      </section><!-- to-the-pod -->
+      <section>
+        <img  src="imgs/to-the-pod_04.png">
+      </section><!-- to-the-pod -->
+      <section>
+        <img  src="imgs/to-the-pod_05.png">
+      </section><!-- to-the-pod -->
+      <section>
+        <img  src="imgs/to-the-pod_06.png">
+      </section><!-- to-the-pod -->
+      <section>
+        <img  src="imgs/to-the-pod_100.png" class="z80">
+      </section><!-- to-the-pod -->
+      <section>
+        <img  src="imgs/to-the-pod_101.png" class="z80">
+      </section><!-- to-the-pod -->
+      <section>
+        <img  src="imgs/to-the-pod_102.png" class="z80">
+      </section><!-- to-the-pod -->
+      <section>
+        <img  src="imgs/to-the-pod_103.png" class="z80">
+      </section><!-- to-the-pod -->
+      <section>
+        <img  src="imgs/to-the-pod_104.png" class="z80">
+      </section><!-- to-the-pod -->
+      <section>
+        <img  src="imgs/to-the-pod_105.png" class="z80">
+      </section><!-- to-the-pod -->
+      <section>
+        <img  src="imgs/to-the-pod_106.png" class="z80">
+      </section><!-- to-the-pod -->
+      <section>
+        <img  src="imgs/to-the-pod_107.png" class="z80">
+      </section><!-- to-the-pod -->
+
+      <section>
+        <h2>k8s Hello World!</h2>
+        <img  src="imgs/logo-nginx.png" class="z33">
+      </section><!-- k8s Hello World! -->
+
+      <section>
+        <img  src="imgs/hello-world-cli.png">
+        <img  src="imgs/hello-world-conf-pod.png" class="z120" style="visibility:hidden;">
+      </section><!-- k8s Hello World! -->
+
+      <section>
+        <img  src="imgs/hello-world-cli_crossed.png">
+        <img  src="imgs/hello-world-conf-pod.png" class="z120 fragment">
+      </section><!-- k8s Hello World! -->
+
+      <section>
+        <img  src="imgs/hello-world-cli_crossed.png">
+        <img  src="imgs/hello-world-conf-pod_crossed.png" class="z120">
+      </section><!-- k8s Hello World! -->
+
+      <section>
+        <img  src="imgs/hello-world_01.png" class="z50">
+      </section><!-- k8s Hello World! -->
+      <section>
+        <img  src="imgs/hello-world_02.png" class="z50">
+      </section><!-- k8s Hello World! -->
+      <section>
+        <img  src="imgs/hello-world_03.png" class="z50">
+      </section><!-- k8s Hello World! -->
+      <section>
+        <img  src="imgs/hello-world-expose.png" class="z66">
+      </section><!-- k8s Hello World! -->
+      <section>
+        <img  src="imgs/hello-world_03.png" class="z50">
+      </section><!-- k8s Hello World! -->
+      <section>
+        <img  src="imgs/hello-world_04.png" class="z50">
+      </section><!-- k8s Hello World! -->
+      <section>
+        <img  src="imgs/hello-world_05.png" class="z50">
+      </section><!-- k8s Hello World! -->
+      <section>
+        <img  src="imgs/hello-world_06.png" class="z50">
+      </section><!-- k8s Hello World! -->
+      <section>
+        <img  src="imgs/hello-world_07.png" class="z50">
+      </section><!-- k8s Hello World! -->
+      <section>
+        <img  src="imgs/hello-world_08.png" class="z50">
+      </section><!-- k8s Hello World! -->
+      <section>
+        <img  src="imgs/hello-world_09.png" class="z50">
+      </section><!-- k8s Hello World! -->
+      <section>
+        <img  src="imgs/hello-world_10.png" class="z33">
+      </section><!-- k8s Hello World! -->
+      <section>
+        <img  src="imgs/hello-world_11.png" class="z33">
+      </section><!-- k8s Hello World! -->
+
+      <section>
+        <img  src="imgs/app-schema_10.png" class="z90">
+      </section><!-- app-schema -->
+
+      <section>
+        <img  src="imgs/proxy-diagram.png" class="z120">
+      </section><!-- proxy-diagram -->
+
+      <section>
+        <img  src="imgs/logo-traefik.png">
+      </section><!-- proxy-diagram -->
+
+      <section>
+        <a href="https://itnext.io/save-on-your-aws-bill-with-kubernetes-ingress-148214a79dcb"><img  src="imgs/ingress-article.png" class="z66"></a>
+      </section><!-- ingress -->
+
+      <section>
+        <h2>thanks</h2>
+        <img src="imgs/srigi.png" class="z125">
+        <h4><a href="https://twitter.com/srigi">@srigi</a></h4>
+      </section><!-- thanks -->
+      <section>
+        <h2>questions?</h2>
+        <img src="imgs/srigi.png" class="z125">
+        <h4><a href="https://twitter.com/srigi">@srigi</a></h4>
+      </section><!-- questions -->
+    </div>
+  </div>
+
+  <script src="js/lib/head.min.js"></script>
+  <script src="js/lib/reveal.js"></script>
+  <script>
+    Reveal.initialize({
+      dependencies: [
+        { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      ],
+
+      width: 1024,
+      controls: false,                        // Display controls in the bottom right corner
+      progress: false,                        // Display a presentation progress bar
+      slideNumber: false,                     // Display the page number of the current slide
+      history: true,                          // Push each slide change to the browser history
+      keyboard: true,                         // Enable keyboard shortcuts for navigation
+      overview: true,                         // Enable the slide overview mode
+      center: true,                           // Vertical centering of slides
+      touch: true,                            // Enables touch navigation on devices with touch input
+      fragments: true,                        // Turns fragments on and off globally
+      help: true,                             // Shows a help overlay when the questionmark key is pressed
+      autoPlayMedia: null,                    // Global override for autolaying embedded media (video/audio/iframe)
+                                              // - null: Media will only autoplay if data-autoplay is present
+                                              // - true: All media will autoplay, regardless of individual setting
+                                              // - false: No media will autoplay, regardless of individual setting
+
+      autoSlide: 0,                           // Number of milliseconds between automatically proceeding to the
+                                              // next slide, disabled when set to 0, this value can be overwritten
+                                              // by using a data-autoslide attribute on your slides
+
+      autoSlideStoppable: true,               // Stop auto-sliding after user input
+      autoSlideMethod: Reveal.navigateNext,   // Use this method for navigation when auto-sliding
+      mouseWheel: false,                      // Enable slide navigation via mouse wheel
+      hideAddressBar: true,                   // Hides the address bar on mobile devices
+      previewLinks: false,                    // Opens links in an iframe preview overlay
+      transition: 'none',                     // none/fade/slide/convex/concave/zoom
+      transitionSpeed: 'fast',                // default/fast/slow
+      backgroundTransition: 'none',           // none/fade/slide/convex/concave/zoom
+      viewDistance: 1,                        // Number of slides away from the current that are visible
+
+      parallaxBackgroundImage: '',            // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+      parallaxBackgroundSize: '',             // CSS syntax, e.g. "2100px 900px"
+      parallaxBackgroundHorizontal: null,     // Number of pixels to move the parallax background per slide
+                                              // - Calculated automatically unless specified
+                                              // - Set to 0 to disable movement along an axis
+    });
+  </script>
+  <script src="js/index.js"></script>
+</body>
+</html>

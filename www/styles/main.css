@@ -1,0 +1,75 @@
+html {
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0);
+    color: #666;
+    font: normal 18px/1.3 Georgia, "New York CE", utopia, serif;
+    overflow-y: scroll;
+}
+
+body {
+    background: #3484d2;
+    color: #333;
+    max-width: 600px;
+    min-width: 320px;
+    margin: 2em auto;
+    padding: 0 0.5em;
+}
+
+a {
+    color: #006aeb;
+    padding: 3px 1px;
+}
+a:hover,
+a:active,
+a:focus {
+    background-color: #006aeb;
+    color: white;
+    text-decoration: none;
+}
+
+.flash {
+    background-color: chartreuse;
+    border: 2px solid darkgray;
+    box-sizing: border-box;
+    color: midnightblue;
+    opacity: 0.8;
+    padding: 0.5rem;
+    position: absolute;
+    left: 5%;
+    top: 1rem;
+    width: 90%;
+}
+
+#banner {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAB5CAIAAAB3BtxyAAAAUElEQVR4AWLg0Q9iYmBgGGAM6HMMUACGQRjIRf//5oGwYVYtADZp7yo1Qd6DZ8XJFsN79v7GEvs9atPfI60ed8TsAssr1/7h63LcGXPl3/8ANSIB8y+gfDQAAAAASUVORK5CYII=);
+    border-radius: 12px 12px 0 0;
+}
+
+    #banner h1 {
+        background: url(https://files.nette.org/images/logo-nette@2.png) no-repeat 95%;
+        background-size: 130px auto; text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.9);
+        color: white;
+        font: inherit;
+        font-size: 50px;
+        line-height: 121px;
+        margin: 0;
+        padding-left: 4%;
+    }
+    @media (max-width: 600px) {
+        #banner h1 {
+            background: none;
+            font-size: 40px;
+        }
+    }
+
+#content {
+    background: white;
+    border: 1px solid #eff4f7;
+    border-radius: 0 0 12px 12px;
+    overflow: hidden;
+    padding: 10px 4%;
+}
+
+    .flexo {
+        display: flex;
+        justify-content: space-between;
+    }
