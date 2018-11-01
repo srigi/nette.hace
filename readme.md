@@ -1,18 +1,18 @@
 Nette hace
 ==========
 
-### Demonstration of webapp development using containers and manual (by hands) deployment into Kubernetes.
+### Demonstration of webapp(s) development using containers and manual (by hands) deployment into Kubernetes.
 
 **note:**
 *Don't use Kubernetes for development! Use `docker-compose` for that.*
 
-This project represents a simple CRUD webapplication. In fact there are two webapps - classical MVC with server-side templates and framework. This MVC webapp also have a REST endpoint. Second webapp is a SPA that consumes that REST endpoint and provides alternative interface for our CRUD webapp.
+This project represents a simple CRUD webapplication. In fact there are two webapps - classic MVC with server-side templates and framework. This MVC webapp also have a REST endpoint. The second webapp is a SPA that consumes that REST endpoint and provides alternative interface for our CRUD webapp.
 
 ![stack](https://i.postimg.cc/nhpX0xmb/stack.png)
 
-**MVC** (in this example **MVP** - Model View Presenter) webapp is written in [Nette framework](https://github.com/nette). **SPA** is written in [Next.js](https://nextjs.org). Both applications are written honoring [Cloud&nbsp;native philosophy and 12&nbsp;factor&nbsp;app design methodology](https://www.cuelogic.com/blog/12-factor-design-methodology-and-cloud-native-applications). All logs and errors are forwarded to `stdout`, `stderr`. Everything is running as a single process inside containers. 
+**MVC** (in this example **MVP** - Model View Presenter) webapp is written in [Nette framework](https://nette.org/). **SPA** is written in [Next.js](https://nextjs.org). Both applications are written honoring [Cloud&nbsp;native philosophy and 12&nbsp;factor&nbsp;app design methodology](https://www.cuelogic.com/blog/12-factor-design-methodology-and-cloud-native-applications). All logs and errors are forwarded to `stdout`, `stderr`. Everything is running as a single process inside containers. 
 
-Dockerfile(s) for developement (`docker-compose`) and production (Kubernetes) are the same. Only ENV vars and `build-args` are used to modify how containers behave in different environments. For example the `IS_PROD_BUILD` is overriden during development so the main Dockerfile will install Xdebug into the docker image.
+Dockerfile(s) for developement (`docker-compose`) and production (Kubernetes) are the same. Only ENV vars and `build-args` are used to modify how containers behave in different environments. For example the [`IS_PROD_BUILD`](https://github.com/srigi/nette.hace/blob/f88994497514593d3b104517cec738e01d443d6b/Dockerfile#L5) is [overriden during development](https://github.com/srigi/nette.hace/blob/f88994497514593d3b104517cec738e01d443d6b/docker-compose.yml#L19) so the main Dockerfile will install Xdebug into the docker image.
 
 **Default `ARG` values in Dockerfiles always represents the production! Use `docker-compose.yml` to override during development!**
 
@@ -57,15 +57,15 @@ There is a handy script for that - [`build-for-kube.sh`](build-for-kube.sh). Run
 
 Deployment must be done in certain order. For example we cannot deploy `webserver` service first, because it will try to connect to the `app` service which don't exist yet and it will fail. It can be said that we must deploy webapps from the back to the front:
 
-##### 1. setup namespace
+##### 1. create namespace `hace`
 
-run the first kubernetes configuration:
+We will enclose our whole stack into kubernetes namepsace. That way our pods and services and any other kubernetes object gets isolated from rest of the cluster. Apply the first kubernetes configuration file:
 
-```
-kubectl apply -f .kubernetes/00_namespaces.yml
-```
+<big><pre>
+kubectl apply -f [.kubernetes/00_namespaces.yml](.kubernetes/00_namespaces.yml)
+</pre></big>
 
-You can verify that namespace was created correctly:
+You can verify if namespace `hace` was created correctly:
 
 ```
 $ kubectl get namespaces
@@ -78,7 +78,7 @@ kube-public     Active   23d
 kube-system     Active   23d
 ```
 
-##### 2. setup persistent-volume(s)
+##### 2. setup *PersistentVolume* for `database`
 
 Since we are using local Kubernetes cluster (see note above) we must create an empty folder to hold data for our PV:
 
@@ -88,9 +88,9 @@ mkdir /tmp/database-hace
 
 Now we can setup a persistent-volume:
 
-```
-kubectl apply -f .kubernetes/10_persistent-volumes.yml
-```
+<big><pre>
+kubectl apply -f [.kubernetes/10_persistent-volumes.yml](.kubernetes/10_persistent-volumes.yml)
+</pre></big>
 
 You can always inspect kubernetes object like this:
 
@@ -116,15 +116,15 @@ Source:
 Events:            <none>
 ```
 
-_**Note:** to persist the data, use some other folder as `/tmp` to hold your PV. Change the above configuration file accordingly._
+_**Note:** to persist the data, use some other folder than `/tmp` to hold your PV. Don't forget to change the above configuration file accordingly._
 
 ##### 3. deploy the `database` service
 
 Now that our database have a space to persist its data, we can deploy the `database` service:
 
-```
-kubectl apply -f .kubernetes/20_database.yml
-```
+<big><pre>
+kubectl apply -f [.kubernetes/20_database.yml](.kubernetes/20_database.yml)
+</pre></big>
 
 Make sure that `database` was deployed correctly and that pod is running:
 
@@ -143,7 +143,7 @@ NAME                                 DESIRED   CURRENT   READY   AGE   LABELS
 replicaset.apps/database-d969547d6   1         1         1       34s   app=database,pod-template-hash=852510382
 ```
 
-In case of problems alwasy use `describe` to inspect the pod:
+In case of problems alwas use `describe` to inspect the pod:
 
 ```
 $ kubectl describe pod --namespace hace database-d969547d6-xftx7
@@ -168,13 +168,13 @@ Events:
 
 ##### 4. run database migrations
 
-We cannot use `kubectl apply` to run our configuration file for migration, since we are using a very handy `generateName` directive in it. That way we can run migration again and again. Without `generateName` the kubernetes object `Job` cannot be reruned.
+We cannot use `kubectl apply` to run our configuration file for database migrations, since we are using a very handy [`generateName`](https://github.com/srigi/nette.hace/blob/d4bff2a62ebecefce4e3ece0e11a7d9b12efdd4b/.kubernetes/30_migration.yml#L5) directive in it. That way we can run migration again and again. Without `generateName` the kubernetes object `Job` cannot be reruned.
 
 To run the migrations we must use:
 
-```
-kubectl create -f .kubernetes/30_migration.yml
-```
+<big><pre>
+kubectl create -f [.kubernetes/30_migrations.yml](.kubernetes/30_migrations.yml)
+</pre></big>
 
 Make sure that pod for migrations is in `Completed` status:
 
@@ -199,10 +199,10 @@ job.batch/database-migrations.0kj7t8   1         1            1m
 
 ##### 5. deploy the `app` service and the `webserver` service
 
-```
-kubectl apply -f .kubernetes/40_app.yml
-kubectl apply -f .kubernetes/40_webserver.yml
-```
+<big><pre>
+kubectl apply -f [.kubernetes/40_app.yml](.kubernetes/40_app.yml)
+kubectl apply -f [.kubernetes/40_webserver.yml](.kubernetes/40_webserver.yml)
+</pre></big>
 
 In addition to pods & services we also deployed an ingres object:
 
@@ -239,9 +239,9 @@ Now it is time to see your webapp running in Kubernetes. Navigate your browser t
 
 Finally lets deploy the `spa` service to demonstrate how ingress can route to different pod by domain name rule:
 
-```
-kubectl apply -f .kubernetes/50_spa.yml
-```
+<big><pre>
+kubectl apply -f [.kubernetes/50_spa.yml](.kubernetes/50_spa.yml)
+</pre></big>
 
 ```
 $ kubectl get ingresses --namespace hace

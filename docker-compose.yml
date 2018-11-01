@@ -12,6 +12,7 @@ services:
       - adminer:/tmp
 
   app:
+    image: srigi/hace/app
     build:
       context: .
       args:
@@ -19,7 +20,6 @@ services:
         IS_PROD_BUILD: 0
         PHP_INI: php-dev.ini
         TIMEZONE: $TIMEZONE
-    image: srigi/hace/app
     env_file:
       - .env
     depends_on:
@@ -82,14 +82,14 @@ services:
     command: bin/phpstan analyse -c phpstan.neon --no-progress --level 7 bin/console config/ src/ www/
 
   webserver:
+    image: srigi/hace/webserver
     build:
       context: .
       dockerfile: Dockerfile.webserver
       args:
-        FCGI_READ_TIMEOUT: $FCGI_READ_TIMEOUT
+        FCGI_READ_TIMEOUT: 3600s
         WEBSERVER_NGINX_PORT: $WEBSERVER_NGINX_PORT
         WEBSERVER_NGINX_TEMPLATE: 'webserver.template.dev.nginx'
-    image: srigi/hace/webserver
     env_file:
       - .env
     depends_on:
@@ -109,6 +109,7 @@ services:
     command: --docker
 
   spa:
+    image: srigi/hace/spa
     build:
       context: .
       dockerfile: Dockerfile.spa
@@ -116,7 +117,6 @@ services:
         API_HOST: "$WEBSERVER_HOSTNAME:$INGRESS_HOST_PORT"
         SPA_NGINX_PORT: $SPA_NGINX_PORT
         SPA_NGINX_TEMPLATE: 'spa.template.dev.nginx'
-    image: srigi/hace/spa
     env_file:
       - .env
     labels:
